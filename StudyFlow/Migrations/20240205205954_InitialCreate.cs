@@ -2,9 +2,9 @@
 
 #nullable disable
 
-namespace StudyFlow.Data.Migrations
+namespace StudyFlow.Migrations
 {
-    public partial class displayName : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

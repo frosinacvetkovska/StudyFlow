@@ -14,6 +14,7 @@ namespace StudyFlow.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+            Tasks = Set<Models.Domain.Task>();
         }
 
         public virtual DbSet<Models.Domain.Task> Tasks { get; set; }

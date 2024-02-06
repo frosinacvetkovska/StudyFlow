@@ -8,8 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+    options.UseNpgsql(connectionString));
+    Console.WriteLine($"Connection string: {connectionString}");
 
 builder.Services.AddDefaultIdentity<StudyFlowUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
@@ -29,6 +29,7 @@ else
     app.UseHsts();
 }
 
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
@@ -41,6 +42,18 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
+
+// Add a health check endpoint
+app.Map("/health", healthApp =>
+{
+    healthApp.Run(async context =>
+    {
+        context.Response.StatusCode = 200;
+        await context.Response.WriteAsync("Healthy");
+    });
+});
+
+
 
 app.Run();
 

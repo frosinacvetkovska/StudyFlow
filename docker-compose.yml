@@ -1,14 +1,44 @@
-version: '3'
+version: '3.8'
 services:
-  msql-server:
-    image: mcr.microsoft.com/mssql/server:2019-latest
+  postgresql_db:
+    #   Use the Docker Image postgres. This will pull the newest release.
+    image: postgres:latest
+    #   Give the container the name my_postgres. You can changes to something else.
+    container_name: postgresql_db
+    ports:
+      - "5432:5432"
     environment:
-        ACCEPT_EULA: "Y"
-        MSSQL_SA_PASSWORD: "kiii2023"
-        MSSQL_PID: Express
-    ports:
-        - "1433:1433"
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=StudyFlowDB
+    volumes:
+      - studyflow-data:/var/lib/postgresql/data
+    networks:
+      - studyflow-network
+
   studyflow-app:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: studyflow-app
     ports:
-        - "8080:80"
+      - "5000:80"
+    depends_on:
+      - postgresql_db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgresql_db;Port=5432;Database=StudyFlowDB;User Id=postgres;Password=admin;
+    networks:
+      - studyflow-network
+
+volumes:
+  studyflow-data:
+
+networks:
+  studyflow-network:
+    driver: bridge
+  
+      
+    
+    
+

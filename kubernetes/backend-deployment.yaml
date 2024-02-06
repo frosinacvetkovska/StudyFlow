@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: studyflow-app
+spec:
+  selector:
+    matchLabels:
+      app: studyflow-app
+  template:
+    metadata:
+      labels:
+        app: studyflow-app
+    spec:
+      containers:
+      - name: studyflow-app
+        image: <Image>
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
