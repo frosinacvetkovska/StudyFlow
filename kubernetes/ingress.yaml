@@ -1,13 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-devops-interns
-  namespace: studyflow
+  name: ingress-studyflow
   annotations:
     ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
-    - host: "studyflow.com"
+    - host: "studyflow-kiii.com"
       http:
         paths:
           - path: /
@@ -16,4 +15,4 @@ spec:
               service:
                 name: studyflow-backend
                 port:
-                  number: 8080
+                  number: 80

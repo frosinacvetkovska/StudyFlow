@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: studyflow-backend
+spec:
+  serviceName: studyflow-backend
+  replicas: 3
+  selector:
+    matchLabels:
+      app: studyflow-backend
+  template:
+    metadata:
+      labels:
+        app: studyflow-backend
+    spec:
+      containers:
+      - name: studyflow-backend
+        image: frosinacvetkovska/studyflow:latest
+        ports:
+        - containerPort: 80
+  volumeClaimTemplates:
+  - metadata:
+      name: studyflow-backend
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "standard"
+      resources:
+        requests:
+          storage: 1Gi

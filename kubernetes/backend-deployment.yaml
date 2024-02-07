@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: studyflow-app
-        image: <Image>
+        image: frosinacvetkovska/studyflow:latest
         resources:
           limits:
             memory: "128Mi"
