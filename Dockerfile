@@ -17,5 +17,6 @@ RUN dotnet publish -c Release -o /app/publish
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS runtime
 WORKDIR /app
 EXPOSE 80
+ENV ASPNETCORE_ENVIRONMENT=Production
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "StudyFlow.dll"]

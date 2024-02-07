@@ -18,6 +18,11 @@ spec:
         image: frosinacvetkovska/studyflow:latest
         ports:
         - containerPort: 80
+        envFrom:
+        - configMapRef:
+            name: studyflow-config
+        - secretRef:
+            name: studyflow-secret
   volumeClaimTemplates:
   - metadata:
       name: studyflow-backend

@@ -4,7 +4,8 @@ services:
     #   Use the Docker Image postgres. This will pull the newest release.
     image: postgres:latest
     #   Give the container the name my_postgres. You can changes to something else.
-    container_name: postgresql_db
+    container_name: postgres_container
+    restart: always
     ports:
       - "5432:5432"
     environment:
@@ -27,7 +28,7 @@ services:
       - postgresql_db
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ConnectionStrings__DefaultConnection=Host=postgresql_db;Port=5432;Database=StudyFlowDB;User Id=postgres;Password=admin;
+      - ConnectionStrings__DefaultConnection=Host=postgres_container;Port=5432;Database=StudyFlowDB;Username=postgres;Password=admin;
     networks:
       - studyflow-network
 

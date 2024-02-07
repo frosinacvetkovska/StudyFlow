@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: aspnet-core-config
+data:
+  ASPNETCORE_ENVIRONMENT: Production
+  ConnectionStrings__DefaultConnection: "Host=postgres-service;Port=5432;Database=your-database;Username=$(POSTGRES_USERNAME);Password=$(POSTGRES_PASSWORD);"
